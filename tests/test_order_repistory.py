@@ -42,14 +42,34 @@ def test_find_with_items(db_connection):
 
 """
 When I create an order with OrderRepository.create
-a new order is created
+a new order is created with 1 item 
 """
 
 def test_new_order(db_connection):
     db_connection.seed("seeds/shop_manager.sql")
     repository = OrderRepository(db_connection)
 
-    repository.add_order(Order(5, "Jane", datetime.date(2023,12,2)), Item(1, "Coffee Grinder", 19.99, 20))
+    repository.add_order(Order(5, "Jane", datetime.date(2023,12,2)), [Item(1, "Coffee Grinder", 19.99, 20)])
+
+    assert repository.all() == [
+        Order(1, "Yaz", datetime.date(2023,10,22)),
+        Order(2, "Ali", datetime.date(2023,11,29)),
+        Order(3, "Maya", datetime.date(2023,11,20)),
+        Order(4, "Ruby", datetime.date(2023,12,1)),
+        Order(5, "Jane", datetime.date(2023,12,2))
+    ]
+
+
+"""
+When I create an order with OrderRepository.create
+a new order is created with 2 items
+"""
+
+def test_new_order(db_connection):
+    db_connection.seed("seeds/shop_manager.sql")
+    repository = OrderRepository(db_connection)
+
+    repository.add_order(Order(5, "Jane", datetime.date(2023,12,2)), [Item(1, "Coffee Grinder", 19.99, 20), Item(4, "Coffee Machine Cleaner", 24.50, 30)])
 
     assert repository.all() == [
         Order(1, "Yaz", datetime.date(2023,10,22)),

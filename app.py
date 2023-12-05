@@ -4,7 +4,7 @@ from lib.item_repository import ItemRepository
 from lib.item import Item
 from lib.order import Order 
 from lib.database_connection import DatabaseConnection
-import inquirer 
+#import inquirer 
 
 class Application():
 
@@ -35,9 +35,11 @@ class Application():
 
         elif answer == '2':
             item_repository = ItemRepository(self._connection)
+
             new_item_name = input("Add new name: ")
             new_item_unit_price = input("Add new price: ")
             new_item_quantity = input("Add quanitity: ")
+
             new_item = Item(None, new_item_name, new_item_unit_price, new_item_quantity)
             item_repository.add(new_item)
             items = item_repository.all()
@@ -55,6 +57,7 @@ class Application():
             order_repository = OrderRepository(self._connection)
             new_order_name = input("\nAdd customer name: ")
             new_order_date = input("Add order date: ")
+            new_order = Order(None, customer_name = new_order_name, order_date = new_order_date)
 
             item_repository = ItemRepository(self._connection)
             all_items = item_repository.all()
@@ -74,12 +77,14 @@ class Application():
             
             # item = inquirer.prompt(questions)
             # print(item)
-
+            items = []
             item_to_add_to_order = int(input("Enter item id: "))
-            item_to_add = item_repository.find_item(item_to_add_to_order)
+            item_to_add = item_repository.find_item(int(item_to_add_to_order))
+            print(items)
+            items.append(item_to_add)
 
             #new_order = Order(None, new_order_name, new_order_date, item_to_add)
-            order_repository.add_order(Order(None, new_order_name, new_order_date), item_to_add, None)
+            order_repository.add_order(new_order, items)
             orders = order_repository.all()
             print(f"\nHere is your updated order list:\n")
             for order in orders:
