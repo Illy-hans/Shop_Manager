@@ -65,22 +65,9 @@ class Application():
             for item in all_items:
                 print(f"#{item.id}: {item.name} - £{item.unit_price}(price p/u) - {item.quantity} in stock")
 
-            # questions = [
-            # inquirer.Checkbox('options',
-            #         message="Add items:\n",
-            #         choices=[Item(1, "Coffee Grinder", 19.99, 20),
-            #                 Item(2, "Coffee Beans", 11.99, 10),
-            #                 Item(3, "Espresso Maker", 349.99, 13),
-            #                 Item(4, "Coffee Machine Cleaner", 24.50, 30)],
-            #         ),
-            #         ]
-            
-            # item = inquirer.prompt(questions)
-            # print(item)
             items = []
             item_to_add_to_order = int(input("Enter item id: "))
-            item_to_add = item_repository.find_item(int(item_to_add_to_order))
-            print(items)
+            item_to_add = item_repository.find_item(item_to_add_to_order)
             items.append(item_to_add)
 
             #new_order = Order(None, new_order_name, new_order_date, item_to_add)
@@ -106,3 +93,20 @@ class Application():
 if __name__ == '__main__':
     app = Application()
     app.run()
+
+
+
+
+
+
+            # questions = [
+            # inquirer.Checkbox('options',
+            #         message="Add items:\n",
+            #         choices=[Item(1, "Coffee Grinder", 19.99, 20),
+            #                 Item(2, "Coffee Beans", 11.99, 10),
+            #                 Item(3, "Espresso Maker", 349.99, 13),
+            #                 Item(4, "Coffee Machine Cleaner", 24.50, 30)],
+            #         ),
+            #         ]
+            
+            # item = inquirer.prompt(questions)

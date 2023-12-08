@@ -26,7 +26,9 @@ class OrderRepository():
         
     
     def add_order(self, order, items):
-        self._connection.execute('INSERT INTO orders (customer_name, order_date) VALUES (%s, %s)', [order.customer_name, order.order_date])
+        rows = self._connection.execute('INSERT INTO orders (customer_name, order_date) VALUES (%s, %s) RETURNING id', [order.customer_name, order.order_date])
+        row = rows[0]
+        order.id = row["id"]
         for item in items:
             self._connection.execute('INSERT INTO items_orders(item_id, order_id) VALUES (%s, %s)', [item.id, order.id])
 
